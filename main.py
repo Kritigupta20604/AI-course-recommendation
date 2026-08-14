@@ -108,7 +108,7 @@ def recommend_course(user: UserForm):
 
 @app.get("/")
 def home():
-    return {"message": "AI Course Recommendation API"}
+    return {"message": "Course Recommendation API"}
 
 
 @app.get("/courses")
