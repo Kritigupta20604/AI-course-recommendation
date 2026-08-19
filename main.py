@@ -11,18 +11,21 @@ class UserForm(BaseModel):
 
 courses = [
     {
+        "id": 1
         "name": "Python for beginners",
         "interest": "Python",
         "level": "Beginner",
         "goal": "programming"
     },
     {
+        "id": 2
         "name": "Advanced Python",
         "interest": "Python",
         "level": "Intermediate",
         "goal": "programming"
         },
     {
+        "id": 3
         "name": "Data Science Essentials",
         "interest": "Data Science",
         "level": "Beginner",
@@ -30,6 +33,7 @@ courses = [
         },
 
     {
+        "id": 4
         "name": "AI Fundamentals",
         "interest": "AI",
         "level": "Beginner",
