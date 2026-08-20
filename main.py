@@ -9,23 +9,29 @@ class UserForm(BaseModel):
     experience: str
     goal: str
 
+class CourseUpdate(BaseModel):
+    name: str
+    interest: str
+    level: str
+    goal: str
+
 courses = [
     {
-        "id": 1
+        "id": 1,
         "name": "Python for beginners",
         "interest": "Python",
         "level": "Beginner",
         "goal": "programming"
-    },
+        },
     {
-        "id": 2
+        "id": 2,
         "name": "Advanced Python",
         "interest": "Python",
         "level": "Intermediate",
         "goal": "programming"
         },
     {
-        "id": 3
+        "id": 3,
         "name": "Data Science Essentials",
         "interest": "Data Science",
         "level": "Beginner",
@@ -33,7 +39,7 @@ courses = [
         },
 
     {
-        "id": 4
+        "id": 4,
         "name": "AI Fundamentals",
         "interest": "AI",
         "level": "Beginner",
@@ -64,7 +70,7 @@ def get_recommendation(user):
                 "alternative": "Data science Essentials"
              }
 
-        elif experience == "Intermediate":
+        elif experience == "intermediate":
             return {
                 "recommendation": "Advanced Python",
                 "reason": "This course is suitable for learners who already have Python experience.",
@@ -75,11 +81,11 @@ def get_recommendation(user):
     elif interest == "ai":
         if experience == "beginner":
             return{
-                "course": "AI fundamentals",
+                "course": "AI Fundamentals",
                 "reason": "This course provides and introduction to Artificial Intelligence.",
                 "alternative": "Python for beginners"
             }
-        elif interest == "intermediate":
+        elif experience == "intermediate":
 
             return{
                 "course": "Machine Learning Basics",
@@ -112,10 +118,40 @@ def recommend_course(user: UserForm):
 
 @app.get("/")
 def home():
-    return {"message": "Course Recommendation System"}
+    return {"Course Recommendation System"}
 
 
 @app.get("/courses")
 def get_courses():
     return courses
 
+@app.delete("/courses/{course_id}")
+def delete_course(course_id : int):
+    for course in courses:
+        if course["id"] == course_id:
+            courses.remove(course)
+            return {
+                "course deleted successfully"
+            }
+    return {
+        "course not found"
+    }
+
+@app.put("/course/{course_id}")
+def update_course(course_id: int, updated_course: CourseUpdate):
+
+    for course in courses:
+        if course["id"] == course_id:
+            course["name"] = updated_course.name
+            course["interest"] = updated_course.interest
+            course["level"] = updated_course.level
+            course["goal"] = updated_course.goal
+
+            return{
+                "message": "Course updated successfully",
+                "course": course
+            }
+
+        return{
+            "course not found"
+        }
