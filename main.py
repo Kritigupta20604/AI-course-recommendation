@@ -106,6 +106,10 @@ def get_recommendation(user):
             "alternative": "Python for Beginners"
         }
 
+@app.get("/")
+def home():
+    return {"Course Recommendation System"}
+
 @app.post("/recommend")
 def recommend_course(user: UserForm):
 
@@ -116,11 +120,6 @@ def recommend_course(user: UserForm):
         "recommendation": recommendation
     }
 
-@app.get("/")
-def home():
-    return {"Course Recommendation System"}
-
-
 @app.get("/courses")
 def get_courses():
     return courses
@@ -130,12 +129,8 @@ def delete_course(course_id : int):
     for course in courses:
         if course["id"] == course_id:
             courses.remove(course)
-            return {
-                "course deleted successfully"
-            }
-    return {
-        "course not found"
-    }
+            return "course deleted successfully"
+    return "course not found"
 
 @app.put("/course/{course_id}")
 def update_course(course_id: int, updated_course: CourseUpdate):
@@ -152,6 +147,5 @@ def update_course(course_id: int, updated_course: CourseUpdate):
                 "course": course
             }
 
-        return{
-            "course not found"
-        }
+        return "course not found"
+        
